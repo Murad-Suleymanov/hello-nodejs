@@ -1,0 +1,15 @@
+{
+  "name": "hello-nodejs",
+  "version": "1.0.0",
+  "description": "Node.js app with Swagger and Prometheus metrics",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "swagger-ui-express": "^5.0.0",
+    "prom-client": "^15.1.0"
+  }
+}
