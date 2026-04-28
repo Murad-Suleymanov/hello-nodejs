@@ -5,6 +5,7 @@ const { metricsHandler } = require('./metrics');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const PYTHON_SERVICE_URL = process.env.PYTHON_SERVICE_URL || 'http://hello-python-svc.hello-python.svc.cluster.local:8080';
 
 // Middleware
 app.use(express.json());
@@ -44,6 +45,24 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get('/api-docs.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
+});
+
+// Chain: hello-nodejs → hello-python
+app.get('/api/chain', async (req, res) => {
+  let pythonResponse;
+  try {
+    const r = await fetch(`${PYTHON_SERVICE_URL}/`);
+    pythonResponse = await r.json();
+  } catch {
+    pythonResponse = 'unreachable';
+  }
+  res.json({
+    source: 'hello-nodejs',
+    calledService: {
+      service: 'hello-python',
+      response: pythonResponse,
+    },
+  });
 });
 
 // Prometheus metrics
