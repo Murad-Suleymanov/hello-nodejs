@@ -50,10 +50,13 @@ app.get('/api-docs.json', (req, res) => {
 // Chain: hello-nodejs → hello-python
 app.get('/api/chain', async (req, res) => {
   let pythonResponse;
+  console.log(`[chain] calling hello-python: ${PYTHON_SERVICE_URL}/`);
   try {
     const r = await fetch(`${PYTHON_SERVICE_URL}/`);
     pythonResponse = await r.json();
-  } catch {
+    console.log('[chain] hello-python response ok');
+  } catch (err) {
+    console.error(`[chain] hello-python unreachable: ${err.message}`);
     pythonResponse = 'unreachable';
   }
   res.json({
