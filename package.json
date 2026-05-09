@@ -8,8 +8,9 @@
     "dev": "node --watch src/index.js"
   },
   "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
     "express": "^4.21.0",
-    "swagger-ui-express": "^5.0.0",
-    "prom-client": "^15.1.0"
+    "prom-client": "^15.1.0",
+    "swagger-ui-express": "^5.0.0"
   }
 }
