@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: registry.easysolution.work
-  IMAGE_NAME: "hello-nodejs-main"
+  IMAGE_NAME: "hello-nodejs"
 
 jobs:
   build-and-push:
@@ -48,5 +48,5 @@ jobs:
         run: |
           curl -sf -X POST https://webhook.easysolution.work/webhook/build-complete \
             -H "Content-Type: application/json" \
-            -d '{"service":"hello-nodejs-main","namespace":"hello-nodejs","tag":"${{ steps.vars.outputs.short_sha }}"}'
+            -d '{"service":"hello-nodejs","namespace":"hello-nodejs","tag":"${{ steps.vars.outputs.short_sha }}"}'
 
